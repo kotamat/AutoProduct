@@ -33,10 +33,9 @@ specs is below
 ${input.specs.join("\n")}
 
 The files already generated are:
-${
-    baseContexts.map((context) => `${context.filepath}: ${context.summary}`)
+${baseContexts.map((context) => `${context.filepath}: ${context.summary}`)
       .join("\n")
-  }
+    }
 
 Output format should be TOML which has array of code and filepath, summary, code element in each code
 
@@ -118,13 +117,13 @@ async function saveCodeFiles(parsed: ParsedTOML): Promise<void> {
 
 async function main(): Promise<void> {
   let continueGenerating = true;
-  const baseContexts = [];
+  const baseContexts: BaseContext[] = [];
   const userInput = await getUserInput();
   while (continueGenerating) {
     const generatedToml = await generateCode(userInput, baseContexts);
     await saveCodeFiles(generatedToml);
-    continueGenerating = await confirm(
-      "続けてコードを生成しますか？ (yes/no): ",
+    continueGenerating = confirm(
+      "続けてコードを生成しますか？",
     );
     userInput.specs =
       prompt("プロダクトの追加仕様をコンマ区切りで入力してください: ")?.split(
